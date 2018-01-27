@@ -1,0 +1,9 @@
+package com.qiyun.qy.dao.base;
+
+import com.qiyun.qy.entity.Client;
+
+public interface IClientDao {
+
+	Client loadClientByClientId(String clientId);
+	
+}

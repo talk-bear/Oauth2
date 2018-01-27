@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+<title>宁波绮耘</title>
+
+<!-- 引入图片 -->
+<!-- <link rel="shortcut icon" th:href="@{/static/img/favicon.gif}"
+	type="image/gif" />
+
+引入样式
+<link rel="stylesheet" th:href="@{/resources/css/bootstrap.min.css}" /> -->
+
+<!-- 引入脚本 -->
+<!-- <script th:src="@{/static/js/jquery/query-3.2.1.min.js}"></script> -->
+<script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js}"></script>
+</head>
+<body>
+	<h1 th:inline="text">Hello.v.2</h1>
+	<span>您好：</span>
+	<sec:authorize access="IS_AUTHENTICATED_FULLY" var="isAuthenticated">
+		<sec:authentication property="principal.username"></sec:authentication>
+      		<a href="/login?logout"> 登出</a>
+	</sec:authorize>
+
+
+	<sec:authorize access="IS_AUTHENTICATED_ANONYMOUSLY"
+		var="isAnonymously">
+      		游客。请登录：<a href="/login">登录</a>
+		<br>
+		<span>(还没账号？<a href="/register">注册</a>)
+		</span>
+	</sec:authorize>
+	
+	
+	
+	<label>
+		<a href="/oauth/authorize?client_id=2&client_secret=secret&response_type=code&scope=read write trust&redirect_uri=http://127.0.0.1/home">authorize</a><br>
+		
+		<a id="exchangeToken" onclick="exchangeToken();">换取Token</a><br>
+		<!-- <a id="exchangeToken" onclick="passwordToken();">密码Token</a><br> -->
+	</label>
+	
+	    	<b style="color:red;" 
+    		th:text="${SPRING_SECURITY_LAST_EXCEPTION}">
+    		<input th:text="${SPRING_SECURITY_LAST_EXCEPTION.message}"></b>
+	
+
+	<p th:text="${hello}"></p>
+
+	<table>
+		<tr th:each="prod : ${prods}">
+			<td th:text="${prod.name}">Onions</td>
+			<td th:text="${prod.price}">2.41</td>
+			<td th:text="${prod.inStock}? #{true} : #{false}">yes</td>
+		</tr>
+	</table>
+
+	<button type="submit"></button>
+	<a href=""></a>
+
+	<input id="text" type="text" />
+	<button onclick="send()">Send</button>
+	<button onclick="closeWebSocket()">Close</button>
+	<div id="message"></div>
+
+	<form enctype="multipart/form-data" method="post"
+		action="/upload">
+		图片<input type="file" name="file" /> <input type="submit" value="上传" />
+	</form>
+	
+	<!-- 加载编辑器的容器 -->
+    <script id="UE-container" type="text/plain">
+        	这里写你的初始化内容
+    </script>
+    <!-- 配置文件 -->
+    <script th:src="@{/static/plug-in/UEditor/ueditor.config.js}"></script>
+    <!-- 编辑器源码文件 -->
+    <script th:src="@{/static/plug-in/UEditor/ueditor.all.js}"></script>
+    <script th:src="@{/static/plug-in/UEditor/lang/zh-cn/zh-cn.js}"></script>
+    
+    <!-- 实例化编辑器 -->
+    <script type="text/javascript">
+        var ue = UE.getEditor('UE-container', {
+            toolbars: [
+            	[
+            		'source', //源代码
+            		'print', //打印
+                    'undo', //撤销
+                    'redo', //重做
+                    'bold', //加粗
+                    'italic', //斜体
+                    'underline', //下划线
+                    'strikethrough', //删除线
+                    'fontborder', //字符边框
+                    'forecolor', //字体颜色
+                    'backcolor', //背景色
+                    'subscript', //下标
+                    'superscript', //上标
+                    'selectall', //全选
+                    'cleardoc', //清空文档
+                    'fontfamily', //字体
+                    'fontsize', //字号
+                    'paragraph', //段落格式
+                    'customstyle', //自定义标题
+                    'insertcode', //代码语言
+                    'formatmatch', //格式刷
+                    'removeformat', //清除格式
+                    'blockquote', //引用
+                    'pasteplain', //纯文本粘贴模式
+                    'date', //日期
+                    'time', //时间
+                    'link', //超链接
+                    'unlink', //取消链接
+                    'anchor', //锚点
+                    //'preview', //预览
+                    'horizontal', //分隔线
+                    'insertparagraphbeforetable', //"表格前插入行"
+                    'inserttable', //插入表格
+                    'insertrow', //前插入行
+                    'insertcol', //前插入列
+                    'mergeright', //右合并单元格
+                    'mergedown', //下合并单元格
+                    'deleterow', //删除行
+                    'deletecol', //删除列
+                    'splittorows', //拆分成行
+                    'splittocols', //拆分成列
+                    'splittocells', //完全拆分单元格
+                    'deletecaption', //删除表格标题
+                    'inserttitle', //插入标题
+                    'mergecells', //合并多个单元格
+                    'deletetable', //删除表格
+                    'edittable', //表格属性
+                    'edittd', //单元格属性
+                    'snapscreen', //截图
+                    'simpleupload', //单图上传
+                    'insertimage', //多图上传
+                    'background', //背景
+                    'map', //Baidu地图
+                    'gmap', //Google地图
+                    'insertvideo', //视频
+                    'imagenone', //默认
+                    'imageleft', //左浮动
+                    'imagecenter', //居中
+                    'imageright', //右浮动
+                    //'help', //帮助
+                    'justifyleft', //居左对齐
+                    'justifyright', //居右对齐
+                    'justifycenter', //居中对齐
+                    'justifyjustify', //两端对齐
+                    'insertorderedlist', //有序列表
+                    'insertunorderedlist', //无序列表
+                    'fullscreen', //全屏
+                    'directionalityltr', //从左向右输入
+                    'directionalityrtl', //从右向左输入
+                    'indent', //首行缩进
+                    'lineheight', //行间距
+                    'rowspacingtop', //段前距
+                    'rowspacingbottom', //段后距
+                    'pagebreak', //分页
+                    'insertframe', //插入Iframe
+                    'attachment', //附件
+                    'wordimage', //图片转存
+                    'edittip ', //编辑提示
+                    'autotypeset', //自动排版
+                    //'webapp', //百度应用
+                    'emotion', //表情
+                    'spechars', //特殊字符
+                    'searchreplace', //查询替换
+                    'touppercase', //字母大写
+                    'tolowercase', //字母小写
+                    'template', //模板
+                    'scrawl', //涂鸦
+                    'music', //音乐
+                    'drafts', // 从草稿箱加载
+                    'charts', // 图表
+                ]
+            ]
+        	,autoHeightEnabled: true
+        	,autoFloatEnabled: true
+        	,initialFrameWidth : 800
+            ,initialFrameHeight : 600
+            ,emotionLocalization : true
+            //, serverUrl: "/ueditor/controller"
+        });
+        
+        UE.Editor.prototype._bkGetActionUrl = UE.Editor.prototype.getActionUrl;
+        UE.Editor.prototype.getActionUrl = function(action) {
+        	return "/ueditor/" + action;
+        }
+    </script>
+</body>
+
+<script type="text/javascript">
+    var websocket = null;
+
+    //判断当前浏览器是否支持WebSocket
+    if('WebSocket' in window){
+        websocket = new WebSocket("ws://127.0.0.1:80/socket");
+    }
+    else{
+        console.log('Not support websocket');
+    }
+
+    //连接发生错误的回调方法
+    websocket.onerror = function(event){
+        setMessageInnerHTML("error");
+        console.log(event);
+    };
+
+    //连接成功建立的回调方法
+    websocket.onopen = function(event){
+        setMessageInnerHTML("open");
+        console.log(event);
+    }
+
+    //接收到消息的回调方法
+    websocket.onmessage = function(event){
+        setMessageInnerHTML(event.data);
+        console.log(event);
+    }
+
+    //连接关闭的回调方法
+    websocket.onclose = function(event){
+        setMessageInnerHTML("close");
+        console.log(event);
+    }
+
+    //监听窗口关闭事件，当窗口关闭时，主动去关闭websocket连接，防止连接还没断开就关闭窗口，server端会抛异常。
+    window.onbeforeunload = function(event){
+        websocket.close();
+        console.log(event);
+    }
+
+    //将消息显示在网页上
+    function setMessageInnerHTML(innerHTML){
+        document.getElementById('message').innerHTML += innerHTML + '<br/>';
+    }
+
+    //关闭连接
+    function closeWebSocket(){
+        //websocket.close();
+    }
+
+    //发送消息
+    function send(){
+        var message = document.getElementById('text').value;
+        //websocket.send(message);
+    }
+    
+    function GetQueryString(name)
+	{
+ 		var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+ 		var parameter = window.location.search.substr(1).match(reg);
+ 		if(parameter) {
+ 			return  unescape(parameter[2]);
+ 		}
+ 		return null;
+	}
+
+	function exchangeToken() {
+		var code = GetQueryString('code');
+		if (code) {
+			$.ajax({
+				type : 'POST'
+				,url : '/oauth/token'
+				,dataType : 'json'
+				,data : {
+					client_id : '2'
+					,client_secret : 'secret'
+					,grant_type : 'authorization_code'
+					,code : code
+					,redirect_uri : 'http://127.0.0.1/home'
+				}
+				,error : function(request, error, exception) {
+					console.warn('exchange token error--------------');
+					console.warn(request);
+					console.warn(error);
+					console.warn(exception);
+					console.warn('exchange token error--------------');
+				}
+				,success : function(data) {
+					console.warn('token---------');
+					console.warn(data);
+					console.warn('token---------');
+				}
+				
+			});
+		} else {
+			console.warn('code is empty!');
+		}
+	}
+	
+	function passwordToken() {
+		$.ajax({
+			type : 'POST'
+			,url : '/oauth/token'
+			,data : {
+				client_id : '2'
+				,client_secret : 'secret'
+				,grant_type : 'password'
+				,username : 'admin'
+				,password : 'admin'
+			}
+			,error : function(request, error, exception) {
+				console.warn('exchange token error--------------');
+				console.warn(request);
+				console.warn(error);
+				console.warn(exception);
+				console.warn('exchange token error--------------');
+			}
+			,success : function(data) {
+				console.warn('token---------');
+				console.warn(data);
+				console.warn('token---------');
+			}
+			
+		});
+	}
+</script>
+</html>

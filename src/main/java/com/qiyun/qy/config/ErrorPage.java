@@ -1,0 +1,21 @@
+package com.qiyun.qy.config;
+/*package com.qiyun.qy.config;
+
+import org.springframework.boot.web.server.ErrorPage;
+import org.springframework.boot.web.server.WebServerFactoryCustomizer;
+import org.springframework.boot.web.servlet.server.ConfigurableServletWebServerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Component;
+
+
+@Component
+public class CustomErrorPage implements WebServerFactoryCustomizer<ConfigurableServletWebServerFactory> {
+
+	@Override
+	public void customize(ConfigurableServletWebServerFactory server) {
+		ErrorPage errorPage = new ErrorPage(HttpStatus.BAD_REQUEST, "/error");
+		server.addErrorPages(errorPage);
+	}
+
+}
+*/

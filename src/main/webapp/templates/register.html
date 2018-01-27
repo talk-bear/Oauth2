@@ -1,0 +1,25 @@
+<!DOCTYPE html>  
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"  
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">  
+    <head>  
+        <title>注册</title>
+        
+        <!-- 引入图片 -->
+        <link rel="shortcut icon" th:href="@{/static/img/favicon.gif}" type="image/gif" />
+        
+        <!-- 引入样式 -->
+		<link rel="stylesheet" th:href="@{/resources/css/bootstrap.min.css}" />
+		
+		<!-- 引入脚本 -->
+  		<!-- <script th:src="@{/resources/js/jquery-1.9.1.min.js}"></script> -->
+    </head>
+    <body>
+    	<form action="/register" method="post">
+    		<span>用户名：</span><input name="username"/><br>
+    		<span>密码：</span><input type="password"/><br>
+    		<span>确认密码：</span><input name="password" type="password"/><br>
+    		<button type="submit">提交</button>
+    	</form>
+        
+    </body>  
+</html>  

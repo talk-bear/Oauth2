@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qiyun.qy.mapper.mysql.IUserDao">
+
+	<resultMap id="role_map" type="com.qiyun.qy.entity.Role">
+		<id column="id" property="id" />
+		<result column="name" property="name" />
+		<result column="ename" property="ename" />
+	</resultMap>
+	
+	<!-- 返回值类型 -->
+    <resultMap id="user_map" type="com.qiyun.qy.entity.User">
+        <id column="id" property="id" />
+        <result column="name" property="username" />
+        <result column="password" property="password" />
+        <result column="email" property="email" />
+        <result column="phone" property="phone" />
+        <result column="locked" property="locked" />
+        <result column="accountExpired" property="accountExpired" />
+        <result column="credentialsExpired" property="credentialsExpired" />
+        
+         <!-- 结果包含集合 -->
+        <collection property="roles" ofType="com.qiyun.qy.entity.Role" 
+        			select="getRolesByUserId" column="{userId = id}"></collection>
+        
+    </resultMap>
+    
+    <select id="getRolesByUserId"  resultMap="role_map">
+    	select role.id, role.name, role.ename from sys_role role
+    	left join user_role u on role.id = u.role_id
+    	<where>
+    		u.user_id = #{userId}
+    	</where>
+    </select>
+
+    <parameterMap id="user" type="com.qiyun.qy.entity.User"/>
+
+	<!-- 可重用代码段 -->
+    <sql id="user_column_list">
+        id, name, password, email, phone, locked, accountExpired, credentialsExpired
+    </sql>
+
+	<!-- 查询语句 -->
+    <select id="findByUserKey" resultMap="user_map" parameterType="string">
+        select
+        <!-- 包含引用 -->
+        <include refid="user_column_list" />
+        from sys_user
+        where name = #{userId}
+    </select>
+    
+    <!-- <resultMap id="BaseResultMap" type="com.qiyun.qy.entity.User">
+    	column：数据库字段  property：pojo属性
+        <result column="user_name" property="userName" />
+        
+        结果包含集合
+        <collection property="ssss" resultMap="com.qiyun.qy.entity.User"></collection>
+        
+    </resultMap>
+    
+    <select id="xxxx">
+    	<where></where>
+    	<foreach collection="" item="" index="" open="" separator="" close="">
+    		item表示集合中每一个元素进行迭代时的别名，
+    		index指 定一个名字，用于表示在迭代过程中，每次迭代到的位置，
+    		open表示该语句以什么开始，
+    		separator表示在每次进行迭代之间以什么符号作为分隔 符，
+    		close表示以什么结束。
+    	</foreach>
+    	<include refid=""></include>
+    	<trim></trim>
+    	<if test=""></if>
+    	<choose>
+    		<when test=""></when>
+    		<otherwise></otherwise>
+    	</choose>
+    </select> -->
+
+</mapper>

@@ -1,0 +1,24 @@
+/*package com.qiyun.qy.service.impl.oauth2;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.stereotype.Service;
+
+@Service("qiYunAuthManager")
+public class AuthManager implements AuthenticationManager{
+	
+	@Autowired
+	@Qualifier("qiYunAuthProvider")
+	private AuthenticationProvider provider;// 自定义验证
+
+	@Override
+	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
+		return provider.authenticate(authentication);
+	}
+
+}
+*/

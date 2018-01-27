@@ -1,0 +1,70 @@
+/*package com.qiyun.qy.config.database;
+
+import javax.sql.DataSource;
+
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.mybatis.spring.SqlSessionFactoryBean;
+import org.mybatis.spring.SqlSessionTemplate;
+import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+
+import com.alibaba.druid.pool.DruidDataSource;
+
+@Configuration
+@MapperScan(basePackages = TwoDataSourceConfig.PACKAGE, sqlSessionTemplateRef = "twoSqlSessionTemplate")
+public class TwoDataSourceConfig {
+	
+	// 精确到 master 目录，以便跟其他数据源隔离
+    static final String PACKAGE = "com.qiyun.qy.dao.two";
+    static final String MAPPER_LOCATION = "classpath:mapper/two/*.xml";
+ 
+    @Value("${datasource.two.url}")
+    private String url;
+ 
+    @Value("${datasource.two.username}")
+    private String user;
+ 
+    @Value("${datasource.two.password}")
+    private String password;
+ 
+    @Value("${datasource.two.driver-class-name}")
+    private String driverClass;
+ 
+    @Bean(name = "twoDataSource")
+    public DataSource twoDataSource() {
+        DruidDataSource dataSource = new DruidDataSource();
+        dataSource.setDriverClassName(driverClass);
+        dataSource.setUrl(url);
+        dataSource.setUsername(user);
+        dataSource.setPassword(password);
+        return dataSource;
+    }
+ 
+    @Bean(name = "twoTransactionManager")
+    public DataSourceTransactionManager twoTransactionManager(@Qualifier("twoDataSource") DataSource twoDataSource) {
+        return new DataSourceTransactionManager(twoDataSource);
+    }
+ 
+    @Bean(name = "twoSqlSessionFactory")
+    public SqlSessionFactory twoSqlSessionFactory(@Qualifier("twoDataSource") DataSource twoDataSource)
+            throws Exception {
+        final SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();
+        sessionFactory.setDataSource(twoDataSource);
+        PathMatchingResourcePatternResolver pathMatching = new PathMatchingResourcePatternResolver();
+        Resource[] mapperLocations = pathMatching.getResources(MAPPER_LOCATION);
+        sessionFactory.setMapperLocations(mapperLocations);
+        return sessionFactory.getObject();
+    }
+    
+    @Bean(name = "twoSqlSessionTemplate")
+    public SqlSessionTemplate testSqlSessionTemplate(@Qualifier("twoSqlSessionFactory") SqlSessionFactory sqlSessionFactory) throws Exception {
+        return new SqlSessionTemplate(sqlSessionFactory);
+    }
+}
+*/

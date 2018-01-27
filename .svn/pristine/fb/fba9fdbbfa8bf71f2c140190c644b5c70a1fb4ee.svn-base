@@ -1,0 +1,9 @@
+package com.qiyun.qy.dao.base;
+
+import com.qiyun.qy.entity.User;
+
+public interface IUserDao {
+	
+	User findByUserKey(String key);
+	
+}

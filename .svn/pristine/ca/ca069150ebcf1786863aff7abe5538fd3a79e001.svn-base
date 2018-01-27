@@ -1,0 +1,37 @@
+server: 
+    port: 80 #启动端口
+    
+datasource: 
+    base: 
+      driver-class-name: com.mysql.jdbc.Driver
+      #com.microsoft.sqlserver.jdbc.SQLServerDriver
+      #oracle.jdbc.driver.OracleDriver
+      url: jdbc:mysql://127.0.0.1:3306/qiyun?useUnicode=true&characterEncoding=utf-8
+      username: sa
+      password: 123456
+#    two: 
+#      driver-class-name: oracle.jdbc.OracleDriver
+#      url: jdbc:oracle:thin:@172.16.10.25:1521:torcl
+#      username: root
+#      password: root
+
+spring: 
+    mvc:
+      message-converters: "org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"
+    thymeleaf: 
+      cache: false 
+      prefix: /templates/
+    servlet: 
+      multipart: 
+        max-file-size: 50MB #上传
+        max-request-size: 100MB #下载
+        
+logging:
+    config: 'classpath:config/logback.xml' 
+    level: 
+      org.spring.springboot.dao: DEBUG
+      org.springframework.security: DEBUG
+             
+#    path: /upload/test
+#    level: 
+#      root: INFO

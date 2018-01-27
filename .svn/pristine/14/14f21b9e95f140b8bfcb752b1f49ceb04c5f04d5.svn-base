@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qiyun.qy.dao.base.IClientDao">
+	
+	<!-- 返回值类型 -->
+    <resultMap id="client_map" type="com.qiyun.qy.entity.Client">
+        <id column="client_id" property="clientId" />
+        <result column="resource_ids" property="resourceIds" />
+        <result column="client_secret" property="clientSecret" />
+        
+        <result column="scope" property="scope" />
+        <result column="authorized_grant_types" property="grantTypes" />
+        <result column="web_server_redirect_uri" property="redirectUri" />
+        
+        <result column="authorities" property="authorities" />
+        <result column="access_token_validity" property="tokenValidity" />
+        <result column="refresh_token_validity" property="refreshValidity" />
+        
+        <result column="additional_information" property="additionalInfo" />
+        <result column="autoapprove" property="autoApprove" />
+        
+    </resultMap>
+
+    <parameterMap id="user" type="com.qiyun.qy.entity.User"/>
+
+	<!-- 可重用代码段 -->
+    <sql id="client_column">
+        client_id, resource_ids, client_secret, scope, authorized_grant_types
+        , web_server_redirect_uri
+        , authorities, access_token_validity
+        , refresh_token_validity, autoapprove
+        , additional_information
+    </sql>
+
+	<!-- 查询语句 -->
+    <select id="loadClientByClientId" resultMap="client_map" parameterType="String">
+        select
+        <!-- 包含引用 -->
+        <include refid="client_column" />
+        from oauth_client_details
+        where client_id = #{clientId}
+    </select>
+
+</mapper>

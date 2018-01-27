@@ -1,0 +1,28 @@
+//package com.qiyun.qy.config.database;
+//
+//import javax.sql.DataSource;
+//
+//import org.springframework.boot.context.properties.ConfigurationProperties;
+//import org.springframework.boot.jdbc.DataSourceBuilder;
+//import org.springframework.context.annotation.Bean;
+//import org.springframework.context.annotation.Configuration;
+//
+//@Configuration
+//public class DataSourceConfig {
+//	
+//	@Bean(name = "baseDataSource")
+//    @ConfigurationProperties(prefix = "datasource.base")
+//    public DataSource baseDataSource() {
+//        return DataSourceBuilder.create().build();
+//    }
+//
+//
+//
+//
+//    @Bean(name = "slaveDataSource")
+//    @ConfigurationProperties(prefix = "datasource.slave")
+//    public DataSource slaveDataSource() {
+//        return DataSourceBuilder.create().build();
+//    }
+//    
+//}
